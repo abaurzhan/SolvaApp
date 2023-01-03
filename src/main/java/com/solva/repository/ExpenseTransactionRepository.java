@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 
 public interface ExpenseTransactionRepository extends JpaRepository<ExpenseTransaction, Integer> {
-    @Query("SELECT sum(et.sum) FROM expenseTransaction et WHERE MONTH (date_time) = :month")
+    @Query(value = "SELECT sum(et.sum) FROM expense_transaction et WHERE MONTH (date_time) = :month",
+            nativeQuery = true)
     BigDecimal calculateSumByCurrentMonth(@Param("month") int month);
 }
