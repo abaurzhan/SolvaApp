@@ -1,15 +1,17 @@
 package com.solva.controller;
 
+import com.solva.domain.Currency;
 import com.solva.domain.ExpenseTransaction;
 import com.solva.domain.MonthLimit;
+import com.solva.dto.ExceedTransacationDTO;
 import com.solva.service.CRUDService;
+import com.solva.service.ExpenseTransactionService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/e-tran")
@@ -17,10 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ExpenseTransactionController {
 
-    CRUDService<ExpenseTransaction> service;
+    ExpenseTransactionService service;
 
     @PostMapping
     public void save(@RequestBody ExpenseTransaction expenseTransaction) {
         service.save(expenseTransaction);
+    }
+
+    @GetMapping("exceed/{currency}")
+    public List<ExceedTransacationDTO> findExceedTransactions(@PathVariable Currency currency){
+        return service.findExceedTransactions(currency);
     }
 }

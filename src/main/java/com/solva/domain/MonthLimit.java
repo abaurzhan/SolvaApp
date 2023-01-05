@@ -26,5 +26,6 @@ public class MonthLimit {
     @Enumerated(EnumType.STRING)
     Currency currency;
 
+    @Enumerated(EnumType.STRING)
     Month month;
 }
